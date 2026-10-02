@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101411">
+  <meta name="description" content="Ten stages. Six enemy types. One ship. A complete native pixel arcade game.">
+  <title>INVADERS / 2600 — The arcade strikes back</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23ec9858' d='M3 0h2v2H3zM2 2h4v1H2zM0 3h1v1H0zM7 3h1v1H7zM0 4h8v3H0zM0 7h2v1H0zM6 7h2v1H6z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="js/core.js"></script>
+  <script defer src="js/sprites.js"></script>
+  <script defer src="js/audio.js"></script>
+  <script defer src="js/renderer.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <a class="brand" href="index.html" aria-label="Invaders home"><canvas id="brand-icon" width="32" height="32" aria-hidden="true"></canvas><span>INVADERS <span class="brand-slash">/</span> <span class="brand-number">2600</span></span></a>
+      <div class="top-actions"><span class="system-live"><i></i> SYSTEM ONLINE</span><button id="sound-button" class="icon-button" aria-pressed="false" title="Toggle audio (M)"><span id="sound-icon">♪</span><span id="sound-label">SOUND ON</span></button></div>
+    </header>
+    <main>
+      <div class="intro-heading"><div><p class="eyebrow">EST. 1978 <span>/</span> REBUILT FOR TODAY</p><h1>A familiar enemy.<br class="mobile-break"> A new invasion.</h1></div><span class="edition">01—02<br><span>2 WORLDS / 10 STAGES</span></span></div>
+      <div class="arcade-layout">
+        <section class="cabinet" id="cabinet" aria-label="Arcade game">
+          <div class="hud"><div><span class="hud-label">HI-SCORE</span><strong id="hi-score">000000</strong></div><div><span class="hud-label">SCORE</span><strong id="score">000000</strong></div><div class="hp-hud"><span class="hud-label">HP</span><span id="hearts" aria-label="3 of 5 lives">♥ ♥ ♥ <span class="empty-heart">♥ ♥</span></span></div><button id="pause-button" class="game-pause" aria-label="Pause game" title="Pause / resume (P)" disabled>Ⅱ</button></div>
+          <div class="screen" id="screen">
+            <canvas id="game" width="480" height="500" tabindex="0" role="img" aria-label="Space invaders game. Move with A and D or arrow keys. Fire with Space. Pause with P."></canvas>
+            <div class="scanlines" id="scanlines" aria-hidden="true"></div>
+            <div id="menu" class="overlay menu-overlay">
+              <button id="start-button" class="primary-button"><span>▶</span> START GAME <kbd>ENTER</kbd></button>
+              <div class="menu-links"><button id="guide-button">HOW TO PLAY</button><span>·</span><button id="scores-button">HIGH SCORES</button></div>
+              <p class="menu-footnote">NO COINS REQUIRED. JUST COURAGE.</p>
+            </div>
+            <div id="pause-panel" class="overlay centered-panel" hidden><p class="eyebrow">TAKE A BREATHER</p><h2>GAME PAUSED</h2><p>The invasion can wait.</p><button id="resume-button" class="primary-button">RESUME <kbd>P</kbd></button><button id="quit-button" class="text-button">RETURN TO MENU</button></div>
+            <div id="outcome-panel" class="overlay centered-panel" hidden><p class="eyebrow" id="outcome-kicker">TRANSMISSION LOST</p><h2 id="outcome-title">GAME OVER</h2><p id="outcome-description"></p><div class="final-score" id="final-score">000000</div><form id="score-form"><label for="initials">ENTER YOUR INITIALS</label><input id="initials" name="initials" aria-label="Three-letter initials" maxlength="3" minlength="3" pattern="[A-Za-z]{3}" placeholder="AAA" autocomplete="off" spellcheck="false" required><button class="primary-button" type="submit">SAVE YOUR SCORE</button></form><div id="score-saved" hidden><p class="saved-copy">YOUR NAME IS IN THE STARS.</p><button id="again-button" class="primary-button">PLAY AGAIN <kbd>ENTER</kbd></button><button id="outcome-menu-button" class="text-button">RETURN TO MENU</button></div></div>
+          </div>
+          <div class="loadout"><div><span class="loadout-label">WEAPON</span><span id="weapon-meter" class="meter"><i class="lit"></i><i></i><i></i><i></i><i></i></span></div><div><span class="loadout-label">FIRE RATE</span><span id="rate-meter" class="meter"><i class="lit"></i><i></i><i></i><i></i><i></i></span></div><div class="shield-readout"><span class="loadout-label">SHIELD</span><strong id="shield-value">00</strong></div></div>
+          <div class="touch-controls" aria-label="Touch game controls"><button data-control="left" aria-label="Move left">◀</button><button data-control="right" aria-label="Move right">▶</button><button data-control="fire" class="touch-fire" aria-label="Fire">FIRE</button></div>
+        </section>
+        <aside class="side-panel">
+          <section class="mission"><div class="section-label"><span>MISSION CONTROL</span><i class="status-dot"></i></div><p id="mission-world" class="mission-world">WORLD 01</p><h2 id="mission-title">FIRST CONTACT</h2><p id="mission-copy">They came from the stars.<br>Send them back.</p><div class="stage-track" id="stage-track" aria-label="Campaign progress"></div><div class="mission-meta"><span id="stage-label">STAGE 01 / 10</span><span id="enemy-count">18 HOSTILES</span></div></section>
+          <section class="leaderboard"><div class="section-label"><span>HALL OF FAME</span><span class="tiny-orange">TOP 5</span></div><ol id="scoreboard"></ol><p class="board-note">THREE LETTERS. FOREVER LEGEND.</p></section>
+          <section class="field-guide"><div class="section-label">KNOW YOUR ENEMY</div><div id="enemy-guide"></div><p class="guide-note">Learn the pattern.<br>Find your opening.</p></section>
+          <div class="supply-note"><span class="supply-symbol">✦</span><p><strong>LOOK UP.</strong><br>Every 10 kills, a supply ship.<br>Shoot it. Catch the upgrade.</p></div>
+        </aside>
+      </div>
+      <div class="under-cabinet"><div class="key-guide"><span><kbd>A</kbd><kbd>D</kbd> / <kbd>←</kbd><kbd>→</kbd> MOVE</span><span><kbd>SPACE</kbd> FIRE</span><span><kbd>P</kbd> PAUSE</span></div><div class="display-actions"><button id="crt-button" aria-pressed="true">CRT <span>ON</span></button><button id="fullscreen-button" title="Fullscreen">⛶ <span>FULLSCREEN</span></button></div></div>
+    </main>
+    <footer><span>BUILT FROM PIXELS. POWERED BY NOSTALGIA.</span><span>PURE HTML · JAVASCRIPT · CSS</span></footer>
+  </div>
+  <dialog id="info-dialog"><button id="close-dialog" class="dialog-close" aria-label="Close dialog">×</button><div id="dialog-content"></div></dialog>
+  <div id="announcer" class="sr-only" aria-live="polite"></div>
+  <noscript>This arcade requires JavaScript. Enable it and reload to play.</noscript>
+</body>
+</html>

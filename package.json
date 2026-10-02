@@ -1,0 +1,7 @@
+{
+  "name": "invaders-2600",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A dependency-free Atari-inspired arcade campaign",
+  "scripts": { "start": "node server.cjs", "test": "node --test tests/*.test.cjs" }
+}
